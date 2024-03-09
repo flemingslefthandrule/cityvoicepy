@@ -6,8 +6,8 @@ to do
 - [ ] account can post
 - [ ] can tag accounts in post
 - [ ] reply to post
-- [ ] 
-- [ ] 
+- [ ] upvote downvote
+- [ ] hashtags ( topics )
 - [ ] 
 - [ ] 
 - [ ] 
