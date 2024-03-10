@@ -10,6 +10,7 @@ to do
         - [x] password
         - [ ] else : 
             - [ ] phone
+                - [ ] otp
     - [x] register :
         - [x] username
         - [x] password
