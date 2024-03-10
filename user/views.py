@@ -34,8 +34,8 @@ class LoginView(generics.GenericAPIView):
         username = request.data.get('username', None)
         password = request.data.get('password', None)
 
-        if phone is None or password is None:
-            return Response({'error': 'please provide both phone number and password.'},
+        if username is None or password is None:
+            return Response({'error': 'please provide both username and password.'},
                             status=status.HTTP_400_BAD_REQUEST)
 
         user = authenticate(username=username, password=password)
