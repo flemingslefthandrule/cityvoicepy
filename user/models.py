@@ -7,5 +7,5 @@ class User(AbstractUser):
     is_expert = models.BooleanField(default=False)
     objects = UserManager()
 
-    USERNAME_FIELD = 'aadhar'
+    USERNAME_FIELD = 'aadhaar'
     REQUIRED_FIELDS = []

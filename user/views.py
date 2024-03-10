@@ -1,6 +1,10 @@
-from rest_framework import generics
+from rest_framework import generics, status
+from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
-from .serializers import UserSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth import authenticate
+from .serializers import UserSerializer, TokenRefreshSerializer
+from .models import User
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -47,19 +51,9 @@ class LoginView(generics.GenericAPIView):
 
 class TokenRefreshView(generics.GenericAPIView):
     permission_classes = (AllowAny,)
+    serializer_class = TokenRefreshSerializer
 
-    def post(self, request):
-        refresh_token = request.data.get('refresh', None)
-        if refresh_token is None:
-            return Response({'error': 'refresh token is required.'}, status=status.HTTP_400_BAD_REQUEST)
-
-        try:
-            refresh = RefreshToken(refresh_token)
-            access_token = refresh.access_token
-        except Exception as e:
-            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
-        response_data = {
-            'access': str(access_token),
-        }
-        return Response(response_data, status=status.HTTP_200_OK)
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        return Response(serializer.validated_data, status=status.HTTP_200_OK)
