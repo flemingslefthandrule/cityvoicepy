@@ -22,7 +22,7 @@ class TokenRefreshSerializer(serializers.Serializer):
     def validate(self, attrs):
         refresh = attrs.get('refresh')
         if refresh is None:
-            raise serializers.ValidationError('Refresh token is required.')
+            raise serializers.ValidationError('refresh token is required.')
 
         try:
             refresh_token = RefreshToken(refresh)
