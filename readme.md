@@ -28,7 +28,8 @@ to do
     - [ ]  video
 - [ ] tag other accounts in post
 - [ ] reply to post
-- [ ] upvote downvote posts and comments
+- [x] upvote downvote posts
+- [ ] upvote downvote replys
 - [x] hashtags ( topics ) `labels`
 - [ ] search and filters
     - [x] search by user? `/user/<username>/posts`
