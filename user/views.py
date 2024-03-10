@@ -1,6 +1,6 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from .serializers import UserSerializer, TokenRefreshSerializer
@@ -29,7 +29,7 @@ class RegisterView(generics.CreateAPIView):
         return Response(response_data, status=status.HTTP_201_CREATED)
 
 class LoginView(generics.GenericAPIView):
-    permission_classes = (AllowAny,)
+    permission_classes = (AllowAny)
     serializer_class = UserSerializer
 
     def post(self, request):
@@ -54,7 +54,18 @@ class LoginView(generics.GenericAPIView):
                             status=status.HTTP_401_UNAUTHORIZED)
 
 # class ProfileView():
- 
+
+class LogoutView(generics.GenericAPIView):
+    permission_classes = (IsAuthenticated)
+    serializer_class = UserSerializer
+
+    def post(self, request):
+        try:
+            refresh = RefreshToken.for_user(user)
+            refresh.blacklist()
+            return Response(status=status.HTTP_205_RESET_CONTENT)
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 def userinfo(request, username):
     try:
