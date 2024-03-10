@@ -11,7 +11,7 @@ to do
         - [ ] else : 
             - [ ] phone
                 - [ ] otp
-                - [ ] phone and password?
+                - [x] phone and password?
     - [x] register :
         - [x] username
         - [x] password
