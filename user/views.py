@@ -81,4 +81,11 @@ def userposts(request, username):
     
     posts = Post.objects.filter(author=user)
 
-    return JsonResponse(posts)
+    post_data = [{
+        "title" : post.title,
+        "body" : post.body,
+        "label" : post.label,
+        "created_at" : post.created_at,
+    } for post in posts]
+
+    return JsonResponse(posts, safe=False)
