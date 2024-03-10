@@ -18,6 +18,8 @@ to do
         - [x] phone
     - [x] logout `/user/logout`
 - [x] profile page `/user/<username>`
+    - [x] follow `/user/<username>/follow`
+    - [x] unfollow `/user/<username>/unfollow`
     - [x] followers list
     - [x] following list
 - [ ] post creation `/post/new`
