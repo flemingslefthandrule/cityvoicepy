@@ -17,16 +17,8 @@ class User(AbstractUser):
 
     @property
     def get_followers(self):
-        count = self.followers.all().count()
-        if not count or count == 0:
-            return {"no followers yet"}
-        else:
-            return self.followers.all()
+        return self.followers.all()
 
     @property
     def get_following(self):
-        count = self.following.all().count()
-        if not count or count == 0:
-            return {"not following anyone yet"}
-        else:
-            return self.following.all()
+        return self.following.all()

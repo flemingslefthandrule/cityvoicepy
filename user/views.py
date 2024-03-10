@@ -62,8 +62,9 @@ def userinfo(request, username):
     except User.DoesNotExist:
         return JsonResponse({'error': 'user not found'}, status=404)
 
-    followers = list(user.get_followers)
-    following = list(user.get_following)
+    followers = [{'username': follower.username, 'is_expert': follower.is_expert} for follower in user.get_followers]
+    following = [{'username': following_user.username, 'is_expert': following_user.is_expert} for following_user in user.get_following]
+
 
 
     user_data = {
