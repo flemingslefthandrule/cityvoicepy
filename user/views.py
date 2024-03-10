@@ -5,6 +5,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from .serializers import UserSerializer, TokenRefreshSerializer
 from .models import User
+from post.models import Post
 
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
@@ -73,4 +74,11 @@ def userinfo(request, username):
 
 
 def userposts(request, username):
-    pass
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return JsonResponse({'error': 'user not found'}, status=404)
+    
+    posts = Post.objects.filter(author=user)
+
+    return JsonResponse(posts)
