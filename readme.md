@@ -2,7 +2,7 @@
 
 to do
 
-- [ ] accounts -> general, expert/govt
+- [x] accounts -> general, expert/govt
 - [ ] profile page
 - [ ] post creation -> text -> image -> video
 - [ ] tag other accounts in post
