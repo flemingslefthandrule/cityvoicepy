@@ -13,6 +13,8 @@ to do
         - password
         - phone
 - [ ] profile page
+    - [x] followers list
+    - [x] following list
 - [ ] post creation -> text -> image -> video
 - [ ] tag other accounts in post
 - [ ] reply to post

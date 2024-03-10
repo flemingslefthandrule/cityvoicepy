@@ -6,6 +6,9 @@ from django.contrib.auth import authenticate
 from .serializers import UserSerializer, TokenRefreshSerializer
 from .models import User
 
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -59,3 +62,21 @@ class TokenRefreshView(generics.GenericAPIView):
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
 # class ProfileView():
+
+def userinfo(request, username):
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return JsonResponse({'error': 'user not found'}, status=404)
+
+    followers = list(user.get_followers)
+    following = list(user.get_following)
+
+    user_data = {
+        'username': user.username,
+        'is_expert': user.is_expert,
+        'followers': [f for f in followers],
+        'following': [f for f in following]
+    }
+
+    return JsonResponse(user_data)
