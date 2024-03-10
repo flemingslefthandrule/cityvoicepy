@@ -14,6 +14,7 @@ to do
         - [x] username
         - [x] password
         - [x] phone
+    - [x] logout
 - [x] profile page
     - [x] followers list
     - [x] following list
