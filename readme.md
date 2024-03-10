@@ -12,23 +12,23 @@ to do
             - [ ] phone
                 - [ ] otp
                 - [x] phone and password? `username = User.objects.get(phone=phone)`
-    - [x] register :
+    - [x] register : `/user/register`
         - [x] username
         - [x] password
         - [x] phone
-    - [x] logout
-- [x] profile page
+    - [x] logout `/user/logout`
+- [x] profile page `/user/<username>`
     - [x] followers list
     - [x] following list
-- [ ] post creation
+- [ ] post creation `/post/new`
     - [x]  text
     - [ ]  image
     - [ ]  video
 - [ ] tag other accounts in post
 - [ ] reply to post
 - [ ] upvote downvote posts and comments
-- [x] hashtags ( topics )
+- [x] hashtags ( topics ) `labels`
 - [ ] search and filters
-    - [x] search by user?
+    - [x] search by user? `/user/<username>/posts`
 - [ ] notifications
 - [ ] talk with other servers
