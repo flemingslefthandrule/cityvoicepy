@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'rest_framework',
     # tayaru chesina apps
     'user',
+    'post',
 ]
 
 MIDDLEWARE = [
