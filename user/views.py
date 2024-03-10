@@ -7,6 +7,7 @@ from .serializers import UserSerializer, TokenRefreshSerializer
 from .models import User
 from post.models import Post
 
+from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 
@@ -53,6 +54,7 @@ class LoginView(generics.GenericAPIView):
                             status=status.HTTP_401_UNAUTHORIZED)
 
 # class ProfileView():
+ 
 
 def userinfo(request, username):
     try:
@@ -63,14 +65,15 @@ def userinfo(request, username):
     followers = list(user.get_followers)
     following = list(user.get_following)
 
+
     user_data = {
         'username': user.username,
         'is_expert': user.is_expert,
-        'followers': [f for f in followers],
-        'following': [f for f in following]
+        'followers': followers,
+        'following': following
     }
 
-    return JsonResponse(user_data)
+    return JsonResponse(user_data, safe=False)
 
 
 def userposts(request, username):
@@ -95,6 +98,8 @@ def follow(request, username):
     user_to_follow = get_object_or_404(User, username=username)
     user = request.user
     if user in user_to_follow.followers.all():
-        pass
+        return JsonResponse({"follow":"already following"})
     else:
         user.following.add(user_to_follow)
+
+    return JsonResponse({"follow":"sucessful"})
