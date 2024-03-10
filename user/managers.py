@@ -20,5 +20,3 @@ class UserManager(BaseUserManager):
         user = self.create_user(username, "" ,password, **extra_fields)
        
         return user
-
-        
