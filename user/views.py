@@ -29,34 +29,43 @@ class RegisterView(generics.CreateAPIView):
         return Response(response_data, status=status.HTTP_201_CREATED)
 
 class LoginView(generics.GenericAPIView):
-    permission_classes = (AllowAny)
+    permission_classes = (AllowAny,)
     serializer_class = UserSerializer
 
     def post(self, request):
         username = request.data.get('username', None)
         password = request.data.get('password', None)
+        phone = request.data.get('phone', None)
 
-        if username is None or password is None:
-            return Response({'error': 'please provide both username and password.'},
-                            status=status.HTTP_400_BAD_REQUEST)
+        if password is None:
+            return Response({'error': 'please provide your password.'}, status=status.HTTP_400_BAD_REQUEST)
+        elif username is None and phone is None:
+            return Response({'error': 'please provide atleast one of username or password.'}, status=status.HTTP_400_BAD_REQUEST)
 
-        user = authenticate(username=username, password=password)
+        try:
+            if username is None:
+                user = User.objects.get(phone=phone)
+                username = user.username
+            else:
+                user = User.objects.get(username=username)
 
-        if user is not None:
-            refresh = RefreshToken.for_user(user)
-            response_data = {
-                'refresh': str(refresh),
-                'access': str(refresh.access_token),
-            }
-            return Response(response_data, status=status.HTTP_200_OK)
-        else:
-            return Response({'error': 'invalid phone number or password.'},
-                            status=status.HTTP_401_UNAUTHORIZED)
+            if user.check_password(password):
+                refresh = RefreshToken.for_user(user)
+                response_data = {
+                    'refresh': str(refresh),
+                    'access': str(refresh.access_token),
+                }
+                return Response(response_data, status=status.HTTP_200_OK)
+            else:
+                return Response({'error': 'invalid password.'}, status=status.HTTP_401_UNAUTHORIZED)
+
+        except User.DoesNotExist:
+            return Response({'error': 'invalid phone number or username.'}, status=status.HTTP_401_UNAUTHORIZED)
 
 # class ProfileView():
 
 class LogoutView(generics.GenericAPIView):
-    permission_classes = (IsAuthenticated)
+    permission_classes = (IsAuthenticated,)
     serializer_class = UserSerializer
 
     def post(self, request):
