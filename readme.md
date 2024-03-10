@@ -2,7 +2,9 @@
 
 to do
 
-- [x] accounts -> general, expert/govt
+- [ ] accounts
+    - [x] general
+    - [x] expert/govt
     - [x] login :
         - [x] username
         - [x] password
@@ -15,14 +17,14 @@ to do
 - [x] profile page
     - [x] followers list
     - [x] following list
-- [x] post creation
+- [ ] post creation
     - [x]  text
     - [ ]  image
     - [ ]  video
 - [ ] tag other accounts in post
 - [ ] reply to post
 - [ ] upvote downvote posts and comments
-- [ ] hashtags ( topics )
+- [x] hashtags ( topics )
 - [ ] search and filters
 - [ ] notifications
 - [ ] talk with other servers
