@@ -3,15 +3,15 @@
 to do
 
 - [ ] accounts
-    - [x] general
-    - [x] expert/govt
-    - [x] login :
+    - [x] general `is_expert = False`
+    - [x] expert/govt `is_expert = True`
+    - [x] login : `/user/login/`
         - [x] username
         - [x] password
         - [ ] else : 
             - [ ] phone
                 - [ ] otp
-                - [x] phone and password?
+                - [x] phone and password? `username = User.objects.get(phone=phone)`
     - [x] register :
         - [x] username
         - [x] password
@@ -29,5 +29,6 @@ to do
 - [ ] upvote downvote posts and comments
 - [x] hashtags ( topics )
 - [ ] search and filters
+    - [x] search by user?
 - [ ] notifications
 - [ ] talk with other servers
