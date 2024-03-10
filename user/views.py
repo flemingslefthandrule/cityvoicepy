@@ -26,6 +26,7 @@ class RegisterView(generics.CreateAPIView):
         response_data = {
             'refresh': str(refresh),
             'access': str(refresh.access_token),
+            'username': str(user.username)
         }
         return Response(response_data, status=status.HTTP_201_CREATED)
 
@@ -55,6 +56,7 @@ class LoginView(generics.GenericAPIView):
                 response_data = {
                     'refresh': str(refresh),
                     'access': str(refresh.access_token),
+                    'username': str(user.username)
                 }
                 return Response(response_data, status=status.HTTP_200_OK)
             else:
