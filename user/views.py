@@ -28,14 +28,14 @@ class LoginView(generics.GenericAPIView):
     serializer_class = UserSerializer
 
     def post(self, request):
-        aadhaar = request.data.get('aadhaar', None)
+        username = request.data.get('username', None)
         password = request.data.get('password', None)
 
         if aadhaar is None or password is None:
             return Response({'error': 'please provide both aadhaar number and password.'},
                             status=status.HTTP_400_BAD_REQUEST)
 
-        user = authenticate(aadhaar=aadhaar, password=password)
+        user = authenticate(username=username, password=password)
 
         if user is not None:
             refresh = RefreshToken.for_user(user)
@@ -57,3 +57,5 @@ class TokenRefreshView(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
+
+class ProfileView():
