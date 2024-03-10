@@ -98,9 +98,23 @@ def userposts(request, username):
 def follow(request, username):
     user_to_follow = get_object_or_404(User, username=username)
     user = request.user
-    if user in user_to_follow.followers.all():
+
+    if user == user_to_follow:
+        return JsonResponse({"follow":"can't follow self"})
+    elif user in user_to_follow.followers.all():
         return JsonResponse({"follow":"already following"})
     else:
         user.following.add(user_to_follow)
 
     return JsonResponse({"follow":"sucessful"})
+
+@login_required
+def unfollow(request, username):
+    user_to_unfollow = get_object_or_404(User, username=username)
+    user = request.user
+    if user in user_to_unfollow.followers.all():
+        user.following.remove(user_to_unfollow)
+    else:
+        return JsonResponse({"unfollow":"not following"})
+
+    return JsonResponse({"unfollow":"sucessful"})
