@@ -6,7 +6,7 @@ class User(AbstractUser):
     username = models.CharField(max_length=300, unique=True)
     phone = models.CharField(max_length=12, unique=True,blank=True)
     is_expert = models.BooleanField(default=False)
-    following = models.ManyToManyField("self", blank=True, symmetrical=False, related_name="followed")
+    following = models.ManyToManyField("self", blank=True, symmetrical=False, related_name="followers")
     
     objects = UserManager()
         
@@ -17,11 +17,11 @@ class User(AbstractUser):
 
     @property
     def get_followers(self):
-        count = self.followed.all().count()
+        count = self.followers.all().count()
         if not count or count == 0:
             return {"no followers yet"}
         else:
-            return self.followed.all()
+            return self.followers.all()
 
     @property
     def get_following(self):
