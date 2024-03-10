@@ -88,4 +88,4 @@ def userposts(request, username):
         "created_at" : post.created_at,
     } for post in posts]
 
-    return JsonResponse(posts, safe=False)
+    return JsonResponse(post_data, safe=False)
