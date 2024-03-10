@@ -4,6 +4,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from .serializers import UserSerializer, TokenRefreshSerializer
+from post.serializers import LabelSerializer
 from .models import User
 from post.models import Post
 
@@ -108,7 +109,9 @@ def userposts(request, username):
     post_data = [{
         "title" : post.title,
         "body" : post.body,
-        "label" : post.label,
+        "label" : LabelSerializer(post.label).data,
+        "upvotes" : post.upvotes,
+        "downvotes" : post.downvotes,
         "created_at" : post.created_at,
     } for post in posts]
 

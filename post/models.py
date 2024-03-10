@@ -12,6 +12,8 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     body = models.TextField()
     label = models.ForeignKey(Label, null=True, blank=True, on_delete=models.SET_NULL)
+    upvotes = models.IntegerField()
+    downvotes = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
