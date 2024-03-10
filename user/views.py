@@ -89,3 +89,12 @@ def userposts(request, username):
     } for post in posts]
 
     return JsonResponse(post_data, safe=False)
+
+@login_required
+def follow(request, username):
+    user_to_follow = get_object_or_404(User, username=username)
+    user = request.user
+    if user in user_to_follow.followers.all():
+        pass
+    else:
+        user.following.add(user_to_follow)
