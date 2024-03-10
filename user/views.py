@@ -72,5 +72,5 @@ def userinfo(request, username):
     return JsonResponse(user_data)
 
 
-def userinfo(request, username):
+def userposts(request, username):
     pass
