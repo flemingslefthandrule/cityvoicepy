@@ -47,8 +47,8 @@ class LoginView(generics.GenericAPIView):
             if username is None:
                 user = User.objects.get(phone=phone)
                 username = user.username
-            else:
-                user = User.objects.get(username=username)
+                
+            user = User.objects.get(username=username)
 
             if user.check_password(password):
                 refresh = RefreshToken.for_user(user)
