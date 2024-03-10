@@ -2,8 +2,8 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.db import router
 
 class UserManager(BaseUserManager):
-    def create_user(self, username, aadhaar, password=None, **extra_fields):
-        user = self.model(username=username,aadhaar=aadhaar, **extra_fields)
+    def create_user(self, username, phone, password=None, **extra_fields):
+        user = self.model(username=username,phone=phone, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user

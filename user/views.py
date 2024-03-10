@@ -31,8 +31,8 @@ class LoginView(generics.GenericAPIView):
         username = request.data.get('username', None)
         password = request.data.get('password', None)
 
-        if aadhaar is None or password is None:
-            return Response({'error': 'please provide both aadhaar number and password.'},
+        if phone is None or password is None:
+            return Response({'error': 'please provide both phone number and password.'},
                             status=status.HTTP_400_BAD_REQUEST)
 
         user = authenticate(username=username, password=password)
@@ -45,7 +45,7 @@ class LoginView(generics.GenericAPIView):
             }
             return Response(response_data, status=status.HTTP_200_OK)
         else:
-            return Response({'error': 'invalid aadhaar number or password.'},
+            return Response({'error': 'invalid phone number or password.'},
                             status=status.HTTP_401_UNAUTHORIZED)
 
 
@@ -58,4 +58,4 @@ class TokenRefreshView(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
-class ProfileView():
+# class ProfileView():

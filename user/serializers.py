@@ -4,13 +4,13 @@ from .models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'aadhaar', 'is_expert', 'password')
+        fields = ('id', 'username', 'phone', 'is_expert', 'password')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
         user = User.objects.create_user(
             validated_data['username'],
-            validated_data['aadhaar'],
+            validated_data['phone'],
             validated_data['password'],
             is_expert=validated_data.get('is_expert', False)
         )

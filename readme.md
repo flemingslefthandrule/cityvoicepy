@@ -3,6 +3,15 @@
 to do
 
 - [x] accounts -> general, expert/govt
+    - login :
+        - username
+        - password
+        - else : 
+            - phone
+    - register :
+        - username
+        - password
+        - phone
 - [ ] profile page
 - [ ] post creation -> text -> image -> video
 - [ ] tag other accounts in post
