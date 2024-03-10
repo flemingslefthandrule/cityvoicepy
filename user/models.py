@@ -19,7 +19,7 @@ class User(AbstractUser):
     def get_followers(self):
         count = self.followed.all().count()
         if not count or count == 0:
-            return "no followers yet"
+            return {"no followers yet"}
         else:
             return self.followed.all()
 
@@ -27,6 +27,6 @@ class User(AbstractUser):
     def get_following(self):
         count = self.following.all().count()
         if not count or count == 0:
-            return "not following anyone yet"
+            return {"not following anyone yet"}
         else:
             return self.following.all()

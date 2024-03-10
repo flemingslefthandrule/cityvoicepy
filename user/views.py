@@ -51,16 +51,6 @@ class LoginView(generics.GenericAPIView):
             return Response({'error': 'invalid phone number or password.'},
                             status=status.HTTP_401_UNAUTHORIZED)
 
-
-class TokenRefreshView(generics.GenericAPIView):
-    permission_classes = (AllowAny,)
-    serializer_class = TokenRefreshSerializer
-
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        return Response(serializer.validated_data, status=status.HTTP_200_OK)
-
 # class ProfileView():
 
 def userinfo(request, username):
