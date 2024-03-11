@@ -4,7 +4,7 @@ from .models import Post, Reply, Label
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ['postid', 'author', 'title', 'body', 'label', 'created_at']
+        fields = ['postid', 'author', 'title', 'body', 'label', 'tagged', 'created_at']
         read_only_fields = ['postid', 'created_at']
 
 class ReplySerializer(serializers.ModelSerializer):
