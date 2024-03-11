@@ -16,6 +16,21 @@ class UserSerializer(serializers.ModelSerializer):
         )
         return user
 
+class ExpertUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'phone','photo', 'is_expert', 'password','department')
+        extra_kwargs = {'password': {'write_only': True}}
+
+    def create(self, validated_data):
+        user = User.objects.create_user(
+            validated_data['username'],
+            validated_data['phone'],
+            validated_data['password'],
+            is_expert=validated_data.get('is_expert', False)
+        )
+        return user
+
 
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()

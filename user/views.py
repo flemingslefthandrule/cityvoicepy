@@ -89,14 +89,23 @@ def userinfo(request, username):
     followers = [{'username': follower.username, 'is_expert': follower.is_expert} for follower in user.get_followers]
     following = [{'username': following_user.username, 'is_expert': following_user.is_expert} for following_user in user.get_following]
 
-
-
     user_data = {
         'username': user.username,
+        'photo' : user.photo,
         'is_expert': user.is_expert,
         'followers': followers,
-        'following': following
+        'following': following,
     }
+
+    if user.is_expert:
+        user_data = {
+            'username': user.username,
+            'photo' : user.photo,
+            'is_expert': user.is_expert,
+            'department': user.department,
+            'followers': followers,
+            'following': following
+        }
 
     return JsonResponse(user_data, safe=False)
 
