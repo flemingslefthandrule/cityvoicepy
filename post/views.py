@@ -5,7 +5,7 @@ from .serializers import PostSerializer, ReplySerializer
 from rest_framework.response import Response
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
-from django.views import View
+from rest_framework.views import APIView
 
 def getlabels(request):  
     labels = Label.objects.all()
@@ -81,42 +81,45 @@ class ReplyDeleteView(DestroyAPIView):
     queryset = Reply.objects.all()
     lookup_field = 'replyid'
 
-
-class PostUpvote(View):
+class PostUpvote(APIView):
     def post(self, request, postid):
         post = get_object_or_404(Post, postid=postid)
         user = request.user
         
-        if user in post.user_votes.filter(voted_posts__downvotes__gt=0):
-            post.downvotes -= 1
-            post.user_votes.remove(user)
-        
-        if user in post.user_votes.filter(voted_posts__upvotes__gt=0):
+
+        if user in post.user_votes.all():
             post.upvotes -= 1
             post.user_votes.remove(user)
-        else:
-            post.upvotes += 1
-            post.user_votes.add(user)
-        
+            return Response({'message': 'post upvote removed successfully'})
+
+        if user in post.user_votes.all():
+            post.downvotes -= 1
+            post.user_votes.remove(user)
+
+
+        post.upvotes += 1
+        post.user_votes.add(user)
         post.save()
-        return JsonResponse({'upvotes': post.upvotes, 'downvotes': post.downvotes})
 
+        return Response({'message': 'post upvoted successfully'})
 
-class PostDownvote(View):
+class PostDownvote(APIView):
     def post(self, request, postid):
         post = get_object_or_404(Post, postid=postid)
         user = request.user
-        
-        if user in post.user_votes.filter(voted_posts__upvotes__gt=0):
-            post.upvotes -= 1
-            post.user_votes.remove(user)
-        
-        if user in post.user_votes.filter(voted_posts__downvotes__gt=0):
+
+        if user in post.user_votes.all():
             post.downvotes -= 1
             post.user_votes.remove(user)
-        else:
-            post.downvotes += 1
-            post.user_votes.add(user)
-        
+            return Response({'message': 'post upvote removed successfully'})
+
+        if user in post.user_votes.all():
+            post.upvotes -= 1
+            post.user_votes.remove(user)
+
+
+        post.downvotes += 1
+        post.user_votes.add(user)
         post.save()
-        return JsonResponse({'upvotes': post.upvotes, 'downvotes': post.downvotes})
+
+        return Response({'message': 'Post downvoted successfully.'})
