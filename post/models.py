@@ -1,5 +1,6 @@
 from django.db import models
 from user.models import User
+import uuid
 
 class Label(models.Model):
     name = models.CharField(max_length=50)
@@ -10,9 +11,9 @@ class Label(models.Model):
 class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
-    postid = models.CharField(max_length=100, unique=True, blank=True)
+    postid = models.CharField(max_length=100, unique=True)
     body = models.TextField()
-    label = models.ForeignKey(Label, null=True, blank=True, on_delete=models.SET_NULL)
+    label = models.ManyToManyField(Label, blank=True, symmetrical=False, related_name="posts_with_label")
     upvotes = models.IntegerField(default=0)
     downvotes = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -21,9 +22,8 @@ class Post(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        if not self.postid:
-            unique_string = f"{self.author.id}-{str(self.created_at)}"
-            self.postid = unique_string
+        unique_string = f"{self.author.username}-{str(uuid.uuid4())}"
+        self.postid = unique_string
         super().save(*args, **kwargs)
 
 class Reply(models.Model):
@@ -38,7 +38,6 @@ class Reply(models.Model):
         return f"reply to {self.post.title} by {self.author.username}"
 
     def save(self, *args, **kwargs):
-        if not self.replyid:
-            unique_string = f"{self.author.id}-{str(self.created_at)}"
-            self.replyid = unique_string
+        unique_string = f"{self.author.id}-{str(self.created_at)}"
+        self.replyid = unique_string
         super().save(*args, **kwargs)

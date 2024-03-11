@@ -11,4 +11,5 @@ urlpatterns = [
     path('replies/<str:replyid>/', views.ReplyDetailView.as_view(), name='reply_detail'),
     path('replies/<str:replyid>/update/', views.ReplyUpdateView.as_view(), name='reply_update'),
     path('replies/<str:replyid>/delete/', views.ReplyDeleteView.as_view(), name='reply_delete'),
+    path('labels/', views.getlabels , name='get_labels'), 
 ]
