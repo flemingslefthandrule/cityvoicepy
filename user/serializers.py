@@ -16,6 +16,17 @@ class UserSerializer(serializers.ModelSerializer):
         )
         return user
 
+
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField()
+
+    def validate(self, data):
+        user = authenticate(**data)
+        if user and user.is_active:
+            return user
+        raise serializers.ValidationError("incorrect credentials")
+
 class TokenRefreshSerializer(serializers.Serializer):
     refresh = serializers.CharField()
 

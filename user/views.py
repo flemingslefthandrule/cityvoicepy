@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
-from .serializers import UserSerializer, TokenRefreshSerializer
+from .serializers import UserSerializer, TokenRefreshSerializer, LoginSerializer
 from post.serializers import LabelSerializer
 from .models import User
 from post.models import Post
@@ -32,22 +32,22 @@ class RegisterView(generics.CreateAPIView):
 
 class LoginView(generics.GenericAPIView):
     permission_classes = (AllowAny,)
-    serializer_class = UserSerializer
+    serializer_class = LoginSerializer
 
     def post(self, request):
         username = request.data.get('username', None)
         password = request.data.get('password', None)
-        phone = request.data.get('phone', None)
+        # phone = request.data.get('phone', None)
 
         if password is None:
             return Response({'error': 'please provide your password.'}, status=status.HTTP_400_BAD_REQUEST)
-        elif username is None and phone is None:
-            return Response({'error': 'please provide atleast one of username or password.'}, status=status.HTTP_400_BAD_REQUEST)
+        elif username is None: # and phone is None:
+            return Response({'error': 'please provide your username.'}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            if username is None:
-                user = User.objects.get(phone=phone)
-                username = user.username
+            # if username is None:
+            #     user = User.objects.get(phone=phone)
+            #     username = user.username
                 
             user = User.objects.get(username=username)
 
