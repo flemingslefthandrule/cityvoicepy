@@ -25,6 +25,7 @@ to do
 - [ ] post creation `/post/new`
     - [x]  text
     - [x] poll `/post/<postid>/add_poll/`
+        - [x] poll results with percentage for each option `/<str:postid>/results/`
     - [ ]  image
     - [ ]  video
 - [x] tag other accounts in post `"tagged" : {} in /post/`
