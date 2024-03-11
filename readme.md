@@ -33,6 +33,6 @@ to do
 - [x] hashtags ( topics ) `labels`
 - [ ] search and filters
     - [x] search post by user? `/user/<username>/posts`
-    - [x] search tagged posts of user? `/user/<username>/tagged`
+    - [x] search posts tagged to user? `/user/<username>/tagged`
 - [ ] notifications
 - [ ] talk with other servers
