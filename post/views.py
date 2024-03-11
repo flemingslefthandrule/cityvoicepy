@@ -122,4 +122,4 @@ class PostDownvote(APIView):
         post.user_votes.add(user)
         post.save()
 
-        return Response({'message': 'Post downvoted successfully.'})
+        return Response({'message': 'post downvoted successfully'})
