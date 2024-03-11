@@ -17,6 +17,7 @@ class Post(models.Model):
     upvotes = models.IntegerField(default=0)
     downvotes = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
+    tagged = models.ManyToManyField(User, blank=True, symmetrical=False, related_name="Taggedposts")
 
     def __str__(self):
         return self.title
@@ -30,6 +31,8 @@ class Reply(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='replies')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     body = models.TextField()
+    upvotes = models.IntegerField(default=0)
+    downvotes = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='nested_replies')
     replyid = models.CharField(max_length=100, unique=True)

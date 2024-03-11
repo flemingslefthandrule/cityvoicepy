@@ -29,7 +29,7 @@ to do
 - [ ] tag other accounts in post
 - [ ] reply to post
 - [x] upvote downvote posts
-- [ ] upvote downvote replys
+- [x] upvote downvote replys
 - [x] hashtags ( topics ) `labels`
 - [ ] search and filters
     - [x] search by user? `/user/<username>/posts`
