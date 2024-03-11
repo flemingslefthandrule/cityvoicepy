@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import RegisterView, LoginView, LogoutView, userinfo, userposts, follow , unfollow, usertagged
+from .views import RegisterView, LoginView, LogoutView, userinfo, userposts, follow , unfollow, usertagged, finduser
 from rest_framework_simplejwt.views import (
     TokenVerifyView,
     TokenRefreshView,
@@ -16,4 +16,5 @@ urlpatterns = [
     path('<str:username>/follow/', follow , name='follow_user'),
     path('<str:username>/unfollow/', unfollow , name='unfollow_user'),
     path('<str:username>/tagged/', usertagged , name='usertagged'),
+    path('whois/<str:whoisname>/',finduser, name='who_is_user')
 ]

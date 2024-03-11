@@ -169,3 +169,28 @@ def unfollow(request, username):
         return JsonResponse({"unfollow":"not following"})
 
     return JsonResponse({"unfollow":"sucessful"})
+
+def finduser(request, whoisname):
+    users = User.objects.all()
+
+    name = whoisname
+
+    if name:
+        users = users.filter(username__icontains=name)
+
+    user_data = [
+        {
+            'name': user.username,
+            'photo': user.photo if user.photo else None,
+        }
+        for user in users
+    ]
+
+    if user_data == [] :
+        user_data = [
+            {
+                'err' : 'not found'
+            }
+        ] 
+
+    return JsonResponse(user_data, safe=False)

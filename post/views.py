@@ -7,6 +7,8 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 
+from django.db.models import Q
+
 def getlabels(request):  
     labels = Label.objects.all()
 
@@ -125,3 +127,30 @@ class PostDownvote(APIView):
         return Response({'message': 'post downvoted successfully'})
 
 # todo : poll
+
+
+def findpost(request, whoispost):
+    posts = Post.objects.all()
+
+    titleorbody = whoispost
+
+    if titleorbody:
+        posts = posts.filter(Q(title__icontains=titleorbody) | Q(body__icontains=titleorbody))
+
+    post_data = [
+        {
+            'title': post.title,
+            'body': post.body,
+            'author': post.author.username,
+        }
+        for post in posts
+    ]
+
+    if post_data == [] :
+        post_data = [
+            {
+                'err' : 'not found'
+            }
+        ] 
+
+    return JsonResponse(post_data, safe=False)
