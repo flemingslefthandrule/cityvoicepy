@@ -26,7 +26,7 @@ to do
     - [x]  text
     - [ ]  image
     - [ ]  video
-- [ ] tag other accounts in post
+- [x] tag other accounts in post
 - [x] reply to post
 - [x] upvote downvote posts
 - [x] upvote downvote replys
