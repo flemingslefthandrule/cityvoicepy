@@ -27,7 +27,7 @@ to do
     - [ ]  image
     - [ ]  video
 - [ ] tag other accounts in post
-- [ ] reply to post
+- [x] reply to post
 - [x] upvote downvote posts
 - [x] upvote downvote replys
 - [x] hashtags ( topics ) `labels`
