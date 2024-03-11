@@ -8,10 +8,10 @@ to do
     - [x] login : `/user/login/`
         - [x] username
         - [x] password
-        - [ ] else : 
+        <!-- - [ ] else : 
             - [ ] phone
                 - [ ] otp
-                - [x] phone and password? `username = User.objects.get(phone=phone)`
+                - [x] phone and password? `username = User.objects.get(phone=phone)` -->
     - [x] register : `/user/register`
         - [x] username
         - [x] password
