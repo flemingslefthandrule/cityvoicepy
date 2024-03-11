@@ -8,19 +8,6 @@ class Label(models.Model):
     def __str__(self):
         return self.name
 
-class PollOption(models.Model):
-    text = models.CharField(max_length=100)
-
-class PollVote(models.Model):
-    option = models.ForeignKey('PollOption', on_delete=models.CASCADE)
-    voter = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
-
-class Poll(models.Model):
-    question = models.CharField(max_length=100)
-    options = models.ManyToManyField(PollOption)
-    votes = models.ManyToManyField(PollVote)
-    post = models.OneToOneField(Post, on_delete=models.CASCADE) # poll can be connected to a post this way, should a poll be allowed to be on multiple posts?
-
 class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
@@ -58,3 +45,18 @@ class Reply(models.Model):
         unique_string = f"{self.author.id}-{str(self.created_at)}"
         self.replyid = unique_string
         super().save(*args, **kwargs)
+
+# polls only on posts!!!
+
+class PollOption(models.Model):
+    text = models.CharField(max_length=100)
+
+class PollVote(models.Model):
+    option = models.ForeignKey('PollOption', on_delete=models.CASCADE)
+    voter = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
+
+class Poll(models.Model):
+    question = models.CharField(max_length=100)
+    options = models.ManyToManyField(PollOption)
+    votes = models.ManyToManyField(PollVote)
+    post = models.OneToOneField(Post, on_delete=models.CASCADE) # poll can be connected to a post this way, should a poll be allowed to be on multiple posts?

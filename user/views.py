@@ -11,6 +11,7 @@ from post.models import Post
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+from rest_framework.decorators import api_view
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -134,6 +135,7 @@ def userposts(request, username):
     return JsonResponse(post_data, safe=False)
 
 @login_required
+@api_view(['GET'])
 def follow(request, username):
     user_to_follow = get_object_or_404(User, username=username)
     user = request.user
@@ -148,6 +150,7 @@ def follow(request, username):
     return JsonResponse({"follow":"sucessful"})
 
 @login_required
+@api_view(['GET'])
 def unfollow(request, username):
     user_to_unfollow = get_object_or_404(User, username=username)
     user = request.user
