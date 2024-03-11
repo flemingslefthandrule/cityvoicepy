@@ -22,3 +22,7 @@ class User(AbstractUser):
     @property
     def get_following(self):
         return self.following.all()
+
+    @property
+    def get_tagged(self):
+        return self.Taggedposts.all()

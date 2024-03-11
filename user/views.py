@@ -100,6 +100,19 @@ def userinfo(request, username):
     return JsonResponse(user_data, safe=False)
 
 
+def usertagged(request, username):
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return JsonResponse({'error': 'user not found'}, status=404)
+
+    post_data = [{
+        "post" : [{'postid': post.postid} for post in user.get_tagged],
+    }]
+
+    return JsonResponse(post_data, safe=False)
+
+
 def userposts(request, username):
     try:
         user = User.objects.get(username=username)
