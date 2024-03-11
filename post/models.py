@@ -13,7 +13,7 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     postid = models.CharField(max_length=100, unique=True)
     body = models.TextField()
-    label = models.ManyToManyField(Label, blank=True, symmetrical=False, related_name="posts_with_label")
+    label = models.ManyToManyField("Label", blank=True, symmetrical=False, related_name="posts_with_label")
     upvotes = models.IntegerField(default=0)
     downvotes = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
