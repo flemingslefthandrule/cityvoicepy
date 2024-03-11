@@ -1,7 +1,7 @@
 from rest_framework.generics import GenericAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
 from rest_framework.permissions import IsAuthenticated
 from .models import Post, Reply, Label
-from .serializers import PostSerializer, ReplySerializer
+from .serializers import PostSerializer, ReplySerializer, PollSerializer
 from rest_framework.response import Response
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
@@ -127,6 +127,61 @@ class PostDownvote(APIView):
         return Response({'message': 'post downvoted successfully'})
 
 # todo : poll
+
+class AddPoll(APIView):
+    # permission_classes = [IsAuthenticated]
+    serializer_class = PollSerializer
+
+    def post(self, request, postid):
+        post = get_object_or_404(Post, post=postid)
+
+        question = request.data.get('question')
+        options = request.data.getlist('options')
+
+        if question and options:
+            poll = Poll.objects.create(question=question, post=post)
+            for option_text in options:
+                poll.options.create(text=option_text)
+            serializer = PostSerializer(post)
+            return Response(serializer.data)
+        return Response({'error': 'missing question or options'}, status=400)
+
+class VotePoll(APIView):
+    # permission_classes = [IsAuthenticated]
+
+    def post(self, request, postid, option_text):
+        user = request.user
+
+        post = get_object_or_404(Post, postid=postid)
+        poll = get_object_or_404(Poll, post=post)
+        has_voted = poll.has_voted(poll, request.user)
+        option = get_object_or_404(poll.options.all(), text=option_text)
+
+        if not poll.has_voted(poll, user): 
+            vote = PollVote.objects.create(option=option, voter=user)
+            option.vote_count += 1
+            option.save()
+
+        serializer = PostSerializer(post)
+        return Response(serializer.data)
+
+class PollResults(APIView):
+    def get(self, request, postid):
+        post = get_object_or_404(Post, postid=postid)
+        poll = get_object_or_404(Poll, post=post)
+
+        total_votes = sum(option.vote_count for option in poll.options.all())
+
+        serializer = PollSerializer(poll)
+        data = serializer.data
+
+        data['total_votes'] = total_votes
+        for option in data['options']:
+            option['vote_percentage'] = (option['vote_count'] / total_votes) * 100 if total_votes > 0 else 0
+
+        return Response(data)
+
+# endtodo : poll
 
 
 def findpost(request, whoispost):

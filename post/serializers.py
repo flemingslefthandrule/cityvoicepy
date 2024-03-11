@@ -1,11 +1,29 @@
 from rest_framework import serializers
-from .models import Post, Reply, Label
+from .models import Post, Reply, Label, Poll, PollOption, PollVote
+
+class PollOptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PollOption
+        fields = ('id', 'text', 'vote_count')
+
+class PollSerializer(serializers.ModelSerializer):
+    options = PollOptionSerializer(many=True)
+
+    class Meta:
+        model = Poll
+        fields = ('id', 'question', 'options', 'has_voted')
+
+    def has_voted(self, instance, user):
+        votes = instance.votes.filter(voter=user)
+        return votes.exists()
+
 
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ['postid', 'author', 'title', 'body', 'label', 'tagged', 'created_at']
-        read_only_fields = ['postid', 'created_at']
+        poll = PollSerializer(read_only=True)
+        fields = ['postid', 'author', 'title', 'body', 'label', 'tagged', 'created_at', 'poll']
+        read_only_fields = ['postid', 'created_at','poll']
 
 class ReplySerializer(serializers.ModelSerializer):
     class Meta:
