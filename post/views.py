@@ -123,3 +123,5 @@ class PostDownvote(APIView):
         post.save()
 
         return Response({'message': 'post downvoted successfully'})
+
+# todo : poll
