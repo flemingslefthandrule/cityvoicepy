@@ -1,6 +1,6 @@
 from rest_framework.generics import GenericAPIView, CreateAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
 from rest_framework.permissions import IsAuthenticated
-from .models import Post, Reply, Label
+from .models import Post, Reply, Label, Poll
 from .serializers import PostSerializer, ReplySerializer, PollSerializer
 from rest_framework.response import Response
 from django.http import JsonResponse
@@ -136,7 +136,7 @@ class AddPoll(APIView):
         post = get_object_or_404(Post, postid=postid)
 
         question = request.data.get('question')
-        options = request.data.getlist('options')
+        options = request.data.get('options')
 
         if question and options:
             poll = Poll.objects.create(question=question, post=post)

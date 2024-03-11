@@ -50,6 +50,7 @@ class Reply(models.Model):
 
 class PollOption(models.Model):
     text = models.CharField(max_length=100)
+    vote_count = models.IntegerField(default=0)
 
 class PollVote(models.Model):
     option = models.ForeignKey('PollOption', on_delete=models.CASCADE)
