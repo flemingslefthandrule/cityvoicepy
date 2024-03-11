@@ -32,6 +32,7 @@ to do
 - [x] upvote downvote replys
 - [x] hashtags ( topics ) `labels`
 - [ ] search and filters
-    - [x] search by user? `/user/<username>/posts`
+    - [x] search post by user? `/user/<username>/posts`
+    - [x] search tagged posts of user? `/user/<username>/tagged`
 - [ ] notifications
 - [ ] talk with other servers
