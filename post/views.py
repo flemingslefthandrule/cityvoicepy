@@ -133,7 +133,7 @@ class AddPoll(APIView):
     serializer_class = PollSerializer
 
     def post(self, request, postid):
-        post = get_object_or_404(Post, post=postid)
+        post = get_object_or_404(Post, postid=postid)
 
         question = request.data.get('question')
         options = request.data.getlist('options')
