@@ -25,14 +25,14 @@ to do
 - [ ] post creation `/post/new`
     - [x]  text
     - [x] poll `/post/<postid>/add_poll/`
-        - [x] poll results with percentage for each option `/<str:postid>/results/`
+        - [x] poll results with percentage for each option `/post/<str:postid>/results/`
     - [ ]  image
     - [ ]  video
 - [x] tag other accounts in post `"tagged" : {} in /post/`
 - [x] reply to post `/post/<postid>/replies/create/`
 - [x] upvote downvote posts `/post/<postid>/upvote/` - `/post/<postid>/upvote/`
 - [x] upvote downvote replys `/reply/<replyid>/upvote/` - `/post/<postid>/upvote/`
-- [x] hashtags ( topics ) `labels`
+- [x] hashtags ( topics ) `post/labels/`
 - [ ] search and filters
     - [x] search post by words in title or body? `/post/whois/<phrase>/`
     - [x] search user by part of their username? `/user/whois/<part>/`
