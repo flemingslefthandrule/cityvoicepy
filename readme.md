@@ -20,8 +20,8 @@ to do
 - [x] profile page `/user/<username>`
     - [x] follow `/user/<username>/follow`
     - [x] unfollow `/user/<username>/unfollow`
-    - [x] followers list
-    - [x] following list
+    - [x] followers list `comes with userinfo at /user/<username>`
+    - [x] following list `comes with userinfo at /user/<username>`
 - [ ] post creation `/post/new`
     - [x]  text
     - [ ]  image
