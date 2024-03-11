@@ -24,7 +24,7 @@ to do
     - [x] following list `comes with userinfo at /user/<username>`
 - [ ] post creation `/post/new`
     - [x]  text
-    - [ ] poll
+    - [ ] poll `/post/<postid>/add_poll/`
     - [ ]  image
     - [ ]  video
 - [x] tag other accounts in post `"tagged" : {} in /post/`

@@ -11,7 +11,7 @@ class PollSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Poll
-        fields = ('id', 'question', 'options', 'has_voted')
+        fields = ('id', 'question', 'options') #, 'has_voted')
 
     def has_voted(self, instance, user):
         votes = instance.votes.filter(voter=user)
