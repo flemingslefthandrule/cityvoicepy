@@ -16,6 +16,7 @@ class Post(models.Model):
     label = models.ManyToManyField("Label", blank=True, symmetrical=False, related_name="posts_with_label")
     upvotes = models.IntegerField(default=0)
     downvotes = models.IntegerField(default=0)
+    user_votes = models.ManyToManyField(User, blank=True, related_name='voted_posts')
     created_at = models.DateTimeField(auto_now_add=True)
     tagged = models.ManyToManyField(User, blank=True, symmetrical=False, related_name="Taggedposts")
 

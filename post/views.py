@@ -5,6 +5,7 @@ from .serializers import PostSerializer, ReplySerializer
 from rest_framework.response import Response
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
+from django.views import View
 
 def getlabels(request):  
     labels = Label.objects.all()
@@ -79,3 +80,43 @@ class ReplyDeleteView(DestroyAPIView):
     serializer_class = ReplySerializer
     queryset = Reply.objects.all()
     lookup_field = 'replyid'
+
+
+class PostUpvote(View):
+    def post(self, request, postid):
+        post = get_object_or_404(Post, postid=postid)
+        user = request.user
+        
+        if user in post.user_votes.filter(voted_posts__downvotes__gt=0):
+            post.downvotes -= 1
+            post.user_votes.remove(user)
+        
+        if user in post.user_votes.filter(voted_posts__upvotes__gt=0):
+            post.upvotes -= 1
+            post.user_votes.remove(user)
+        else:
+            post.upvotes += 1
+            post.user_votes.add(user)
+        
+        post.save()
+        return JsonResponse({'upvotes': post.upvotes, 'downvotes': post.downvotes})
+
+
+class PostDownvote(View):
+    def post(self, request, postid):
+        post = get_object_or_404(Post, postid=postid)
+        user = request.user
+        
+        if user in post.user_votes.filter(voted_posts__upvotes__gt=0):
+            post.upvotes -= 1
+            post.user_votes.remove(user)
+        
+        if user in post.user_votes.filter(voted_posts__downvotes__gt=0):
+            post.downvotes -= 1
+            post.user_votes.remove(user)
+        else:
+            post.downvotes += 1
+            post.user_votes.add(user)
+        
+        post.save()
+        return JsonResponse({'upvotes': post.upvotes, 'downvotes': post.downvotes})

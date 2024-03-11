@@ -12,8 +12,8 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('<str:username>/', userinfo , name='userinfo'),
-    path('<str:username>/posts', userposts , name='userposts'), 
-    path('<str:username>/follow', follow , name='follow_user'),
-    path('<str:username>/unfollow', unfollow , name='unfollow_user'),
-    path('<str:username>/tagged', usertagged , name='usertagged'),
+    path('<str:username>/posts/', userposts , name='userposts'), 
+    path('<str:username>/follow/', follow , name='follow_user'),
+    path('<str:username>/unfollow/', unfollow , name='unfollow_user'),
+    path('<str:username>/tagged/', usertagged , name='usertagged'),
 ]

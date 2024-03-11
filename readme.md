@@ -26,10 +26,10 @@ to do
     - [x]  text
     - [ ]  image
     - [ ]  video
-- [x] tag other accounts in post
-- [x] reply to post
-- [x] upvote downvote posts
-- [x] upvote downvote replys
+- [x] tag other accounts in post `"tagged" : {} in /post/`
+- [x] reply to post `/post/<postid>/replies/create/`
+- [x] upvote downvote posts `/post/<postid>/upvote/` - `/post/<postid>/upvote/`
+- [x] upvote downvote replys `/reply/<replyid>/upvote/` - `/post/<postid>/upvote/`
 - [x] hashtags ( topics ) `labels`
 - [ ] search and filters
     - [x] search post by user? `/user/<username>/posts`
