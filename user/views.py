@@ -109,6 +109,7 @@ def userposts(request, username):
     posts = Post.objects.filter(author=user)
 
     post_data = [{
+        "postid" : post.postid,
         "title" : post.title,
         "body" : post.body,
         "label" : LabelSerializer(post.label).data,
