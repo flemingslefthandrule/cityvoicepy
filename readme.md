@@ -36,7 +36,7 @@ to do
 - [ ] search and filters
     - [x] search post by words in title or body? `/post/whois/<phrase>/`
     - [x] search user by part of their username? `/user/whois/<part>/`
-    - [x] search post by user? `/user/<username>/posts`
-    - [x] search posts tagged to user? `/user/<username>/tagged`
+    - [x] search post by user? `/user/<username>/posts/`
+    - [x] search posts tagged to user? `/user/<username>/tagged/`
 - [ ] notifications
 - [ ] talk with other servers
