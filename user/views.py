@@ -12,6 +12,7 @@ from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from rest_framework.decorators import api_view
+from django.views.decorators.http import require_http_methods
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -65,6 +66,17 @@ class LoginView(generics.GenericAPIView):
 
         except User.DoesNotExist:
             return Response({'error': 'invalid phone number or username.'}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+        def get(self, request): 
+
+            authenticated_user = authenticate(username=request.username, password= request.password) 
+
+            if not authenticated_user:
+                return Response({'error': 'authentication failed'}, status=HTTP_401_UNAUTHORIZED)
+
+            serializer = self.serializer_class(authenticated_user)
+            return Response(serializer.data, status=HTTP_200_OK)
 
 # class ProfileView():
 
@@ -145,8 +157,9 @@ def userposts(request, username):
 
     return JsonResponse(post_data, safe=False)
 
-@login_required
-@api_view(['GET'])
+# @login_required
+# @api_view(['POST'])
+# @require_http_methods(['POST'])
 def follow(request, username):
     user_to_follow = get_object_or_404(User, username=username)
     user = request.user
@@ -160,8 +173,9 @@ def follow(request, username):
 
     return JsonResponse({"follow":"sucessful"})
 
-@login_required
-@api_view(['GET'])
+# @login_required
+# @api_view(['POST'])
+# @require_http_methods(['POST'])
 def unfollow(request, username):
     user_to_unfollow = get_object_or_404(User, username=username)
     user = request.user
