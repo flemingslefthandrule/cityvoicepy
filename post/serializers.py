@@ -28,7 +28,7 @@ class PostSerializer(serializers.ModelSerializer):
 class ReplySerializer(serializers.ModelSerializer):
     class Meta:
         model = Reply
-        fields = ['replyid', 'post', 'author', 'body', 'upvote', 'downvote', 'created_at', 'parent']
+        fields = ['replyid', 'post', 'author', 'body', 'created_at', 'parent']
         read_only_fields = ['replyid', 'created_at']
 
     def to_representation(self, instance):

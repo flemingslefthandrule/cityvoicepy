@@ -28,3 +28,4 @@ class User(AbstractUser):
     @property
     def get_tagged(self):
         return self.Taggedposts.all()
+
