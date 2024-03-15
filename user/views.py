@@ -129,9 +129,13 @@ def usertagged(request, username):
         return JsonResponse({'error': 'user not found'}, status=404)
 
     post_data = [{
-        "postid": post.postid,
+        "postid" : post.postid,
         "title" : post.title,
         "body" : post.body,
+        "label" : LabelSerializer(post.label).data,
+        "upvotes" : post.upvotes,
+        "downvotes" : post.downvotes,
+        "created_at" : post.created_at,
         } for post in user.get_tagged]
 
     return JsonResponse(post_data, safe=False)
