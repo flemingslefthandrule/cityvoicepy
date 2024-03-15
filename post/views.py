@@ -83,27 +83,30 @@ class ReplyDeleteView(DestroyAPIView):
     queryset = Reply.objects.all()
     lookup_field = 'replyid'
 
-class PostUpvote(APIView):
-    def post(self, request, postid):
+
+class PostUpvote(APIView): 
+    def post(self,request, postid):
         post = get_object_or_404(Post, postid=postid)
         user = request.user
-        
 
-        if user in post.user_votes.all():
-            post.upvotes -= 1
-            post.user_votes.remove(user)
-            return Response({'message': 'post upvote removed successfully'})
+        if user in post.upvotes.all():
+            post.upvotes.remove(user.id)
+        elif user in post.downvotes.all():
+            post.downvotes.remove(user.id)
+        else:
+            post.upvotes.add(user.id)
 
-        if user in post.user_votes.all():
-            post.downvotes -= 1
-            post.user_votes.remove(user)
+        # Refresh the post object to get updated upvote/downvote counts
+        post = Post.objects.get(pk=post.pk)  # Use pk instead of id for efficiency
 
 
-        post.upvotes += 1
-        post.user_votes.add(user)
-        post.save()
+        return Response({
+            'message': 'Upvote successful' if user in post.upvotes.all() else 'Downvote removed' if user not in post.upvotes.all() else 'Downvote successful',
+            'upvotes': post.upvotes.count(),
+            'downvotes': post.downvotes.count(),
+            'postid': post.postid
+        })
 
-        return Response({'message': 'post upvoted successfully'})
 
 class PostDownvote(APIView):
     def post(self, request, postid):
@@ -122,7 +125,7 @@ class PostDownvote(APIView):
 
         post.downvotes += 1
         post.user_votes.add(user)
-        post.save()
+        post.update()
 
         return Response({'message': 'post downvoted successfully'})
 
