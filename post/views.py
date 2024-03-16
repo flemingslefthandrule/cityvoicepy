@@ -17,6 +17,13 @@ def getlabels(request):
     } for label in labels]
 
     return JsonResponse(label_data, safe=False)
+class RenderLocalFeed(APIView):
+    serializer_class = PostSerializer
+
+    def get(self, request):
+        posts = Post.objects.all().order_by("-created_at")[:50] 
+        return Response(self.serializer_class(posts, many=True).data) 
+
 
 class CreateNewPostView(CreateAPIView):
     # permission_classes = [IsAuthenticated]

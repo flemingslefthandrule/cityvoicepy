@@ -133,8 +133,8 @@ def usertagged(request, username):
         "title" : post.title,
         "body" : post.body,
         "label" : LabelSerializer(post.label).data,
-        "upvotes" : post.upvotes,
-        "downvotes" : post.downvotes,
+        "upvotes" : post.upvotes.count(),
+        "downvotes" : post.downvotes.count(),
         "created_at" : post.created_at,
         } for post in user.get_tagged]
 

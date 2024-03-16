@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     path('labels/', views.getlabels , name='get_labels'), 
     path('', views.CreateNewPostView.as_view(), name='create_post'),
+    path('localfeed/', views.RenderLocalFeed.as_view(), name='localfeed'),
     path('<str:postid>/', views.PostDetailView.as_view(), name='post_detail'),
     path('<str:postid>/upvote/', views.PostUpvote.as_view(), name='post_upvote'),
     path('<str:postid>/downvote/', views.PostDownvote.as_view(), name='post_downvote'),
