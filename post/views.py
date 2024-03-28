@@ -17,6 +17,7 @@ def getlabels(request):
     } for label in labels]
 
     return JsonResponse(label_data, safe=False)
+       
 class RenderLocalFeed(APIView):
     serializer_class = PostSerializer
 
