@@ -47,3 +47,9 @@ to do
 - [ ] venv creation automate
 - [ ] notifications
 - [ ] talk with other servers
+
+## contributors
+
+<a href="https://github.com/flemingslefthandrule/cityvoice/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=flemingslefthandrule/cityvoice">
+</a>
