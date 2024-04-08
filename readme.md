@@ -17,6 +17,7 @@ to do
         - [x] password
         - [x] phone
     - [x] logout `/user/logout`
+- [ ] custom middleware for auth
 - [x] profile page `/user/<username>`
     - [x] follow `/user/<username>/follow`
     - [x] unfollow `/user/<username>/unfollow`
@@ -43,5 +44,6 @@ to do
    - [x] follow feed
    - [ ] topic feed
    - [ ] global feed
+- [ ] venv creation automate
 - [ ] notifications
 - [ ] talk with other servers
