@@ -1,28 +1,31 @@
 from pathlib import Path
 from datetime import timedelta
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-=@j2)tru)@174wj(gsw9(x+d=vd(wmj0jf0hb8y3242z!u3goo'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", 'localhost', '216.98.13.131']
+ALLOWED_HOSTS = ["127.0.0.1", 'localhost']
 
 
 INSTALLED_APPS = [
-    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # ekkincukunna apps
+
     'rest_framework',
     'corsheaders',
     'rest_framework_simplejwt.token_blacklist',
-    # tayaru chesina apps
+
     'user',
     'post',
 ]
@@ -35,7 +38,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # ekkinchukunna middleware
+
     'corsheaders.middleware.CorsMiddleware',
 ]
 
